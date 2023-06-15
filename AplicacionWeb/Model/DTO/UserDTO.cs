@@ -15,7 +15,7 @@ namespace Model.DTO
 
     }
 
-    public class RoleList
+    public class RoleListDTO
     {
         public int Id { get; set;}
         public string Authority { get; set; } = string.Empty;

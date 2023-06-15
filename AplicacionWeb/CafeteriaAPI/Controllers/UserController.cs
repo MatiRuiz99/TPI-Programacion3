@@ -9,7 +9,7 @@ namespace CafeteriaAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserService _userService = new UserService();
+       
 
         [HttpPost("CreateUser")]
         public ActionResult<UserDTO> CreateUsuario([FromBody] UserDTO usuario)
