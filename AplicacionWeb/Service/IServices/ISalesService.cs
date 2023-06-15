@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Service.IServices
 {
-    public class CafeteriaService
+    internal interface ISalesService
     {
-
     }
 }

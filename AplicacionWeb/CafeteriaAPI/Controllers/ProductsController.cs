@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.DTO;
-using Service;
+using Model.ViewModel;
+using Service.IServices;
+using Service.Services;
 using System.Collections.Generic;
 
 namespace CafeteriaAPI.Controllers
@@ -10,10 +12,10 @@ namespace CafeteriaAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {   //TEST Asi se utiliza una Inyecccion de dependencia
-        private readonly ProductoService _productoService = new ProductoService();
-        public ProductsController()
+        private readonly IProductService _service;
+        public ProductsController(IProductService service)
         {
-           
+            _service = service;
         }
 
 
@@ -22,7 +24,7 @@ namespace CafeteriaAPI.Controllers
         public ActionResult<List<ProductDTO>> GetProductList()
         {
             //var producto = new ProductoService();
-            var response = _productoService.GetProductList();
+            var response = _service.GetProductList();
 
             return Ok(response);
 
@@ -33,25 +35,25 @@ namespace CafeteriaAPI.Controllers
         public ActionResult<ProductDTO> GetProductById(int id)
         {
             //var producto = new ProductoService();
-            var response = _productoService.GetProductById(id);
+            var response = _service.GetProductById(id);
 
             return Ok(response);
 
         }
 
         [HttpPost("CreateProducto")]
-        public ActionResult<ProductDTO> CreateProduct([FromBody] ProductDTO producto)
+        public ActionResult<ProductDTO> CreateProduct([FromBody] ProductViewModel producto)
         {
-            var response = _productoService.CreateProduct(producto);
+            var response = _service.CreateProduct(producto);
 
             return Ok(response);
         }
 
         [HttpPut("PutProducto/{id}")]
 
-        public ActionResult<ProductDTO> ModifyProduct(int id, [FromBody] ProductDTO producto)
+        public ActionResult<ProductDTO> ModifyProduct(int id, [FromBody] ProductViewModel producto)
         {
-            var response = _productoService.ModifyProduct(id,producto);
+            var response = _service.ModifyProduct(id,producto);
 
             return Ok(response);
         }
@@ -60,7 +62,7 @@ namespace CafeteriaAPI.Controllers
 
         public ActionResult<ProductDTO> DeleteProduct(int id)
         {
-            var response = _productoService.DeleteProduct(id);
+            var response = _service.DeleteProduct(id);
 
             return Ok(response);
         }

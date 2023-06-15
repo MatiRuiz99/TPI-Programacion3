@@ -2161,11 +2161,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\matia\\Desktop\\AplicacionWeb\\CafeteriaAPI\\CafeteriaAPI.csproj",
+      "projectUniqueName": "C:\\Users\\matia\\Desktop\\TPI-Programacion3\\AplicacionWeb\\CafeteriaAPI\\CafeteriaAPI.csproj",
       "projectName": "CafeteriaAPI",
-      "projectPath": "C:\\Users\\matia\\Desktop\\AplicacionWeb\\CafeteriaAPI\\CafeteriaAPI.csproj",
+      "projectPath": "C:\\Users\\matia\\Desktop\\TPI-Programacion3\\AplicacionWeb\\CafeteriaAPI\\CafeteriaAPI.csproj",
       "packagesPath": "C:\\Users\\matia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\matia\\Desktop\\AplicacionWeb\\CafeteriaAPI\\obj\\",
+      "outputPath": "C:\\Users\\matia\\Desktop\\TPI-Programacion3\\AplicacionWeb\\CafeteriaAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\matia\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2183,8 +2183,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\matia\\Desktop\\AplicacionWeb\\Service\\Service.csproj": {
-              "projectPath": "C:\\Users\\matia\\Desktop\\AplicacionWeb\\Service\\Service.csproj"
+            "C:\\Users\\matia\\Desktop\\TPI-Programacion3\\AplicacionWeb\\Service\\Service.csproj": {
+              "projectPath": "C:\\Users\\matia\\Desktop\\TPI-Programacion3\\AplicacionWeb\\Service\\Service.csproj"
             }
           }
         }

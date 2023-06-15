@@ -20,13 +20,13 @@ namespace Model.Models.Configurations
                 .WithMany(p => p.SalesHistoryProduct)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SalesHist__Produ__7E37BEF6");
+                .HasConstraintName("FK__SalesHist__Produ__2180FB33");
 
             entity.HasOne(d => d.User)
                 .WithMany(p => p.SalesHistoryUser)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SalesHist__UserI__7F2BE32F");
+                .HasConstraintName("FK__SalesHist__UserI__22751F6C");
 
             OnConfigurePartial(entity);
         }

@@ -4,20 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.DTO
+namespace Model.ViewModel
 {
-    public class UserDTO
+    public class UserViewModel
     {
-        public int UserId { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
-        public int RoleId { get; set;}
-
+        public int RoleId { get; set; } 
     }
 
-    public class RoleList
+    public class RoleListViewModel
     {
-        public int Id { get; set;}
         public string Authority { get; set; } = string.Empty;
     }
 }
