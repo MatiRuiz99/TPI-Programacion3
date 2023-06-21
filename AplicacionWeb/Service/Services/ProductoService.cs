@@ -28,7 +28,7 @@ namespace Service.Services
 
             foreach (var p in product)
             {
-                //Preguntar por que no puedo filtrar por true
+               
                 productResponse.Add(new ProductDTO()
                 {
                     IdProducto = p.IdProducto,

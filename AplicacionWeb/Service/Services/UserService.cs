@@ -80,9 +80,19 @@ namespace Service.Services
             return usuario;
         }
 
-        public List<Users> GetUserList()
+        public List<UserxRoleDTO> GetUserList()
         {
-            var userList = _context.Users.ToList();
+            List<UserxRoleDTO> userList = (from u in _context.Users
+                                      join r in _context.RoleList
+                                      on u.RoleId equals r.Id
+                                      select new UserxRoleDTO()
+                                      {
+                                          UserId = u.UserId,
+                                          Name = u.Name,
+                                          Email = u.Email,
+                                          Role = r.Authority,
+
+                                      }).ToList();
 
             return userList;
         }
