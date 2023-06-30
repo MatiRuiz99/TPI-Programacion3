@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.DTO;
+using Service.IServices;
 using Service.Services;
 
 namespace CafeteriaAPI.Controllers
@@ -9,7 +10,12 @@ namespace CafeteriaAPI.Controllers
     [ApiController]
     public class SalesHistoryController : ControllerBase
     {
-        private readonly SalesService _salesService = new SalesService();
+        private readonly ISalesService _salesService;
+
+        public SalesHistoryController(ISalesService salesService)
+        {
+            _salesService = salesService;
+        }
 
         [HttpGet]
         public ActionResult<List<SalesHistoryDTO>> GetSalesHistory()

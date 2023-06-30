@@ -16,6 +16,6 @@ namespace Service.IServices
         List<RoleList> GetRoleList();
         Users GetUserById(int id);
         List<UserxRoleDTO> GetUserList();
-        string ModifyUser(int id, UserDTO usuarioModificado);
+        string ModifyUser(int id, UserViewModel usuarioModificado);
     }
 }

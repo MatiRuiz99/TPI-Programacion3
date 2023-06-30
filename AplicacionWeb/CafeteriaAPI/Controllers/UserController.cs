@@ -62,7 +62,7 @@ namespace CafeteriaAPI.Controllers
 
         [HttpPut("PutModifiedUser/{id}")]
 
-        public ActionResult<UserDTO> ModifyUser(int id, [FromBody] UserDTO user)
+        public ActionResult<UserDTO> ModifyUser(int id, [FromBody] UserViewModel user)
         {
             var response = _service.ModifyUser(id, user);
 

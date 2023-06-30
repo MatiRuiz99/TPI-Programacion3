@@ -42,11 +42,21 @@ namespace Service.Services
             return productResponse;
             
         }
-        public Producto GetProductById(int id)
+        public ProductDTO GetProductById(int id)
         {
             var producto = _context.Producto.FirstOrDefault(p => p.IdProducto == id);
 
-            return producto;
+            
+            var productDTO = new ProductDTO()
+            {
+                IdProducto = producto.IdProducto,
+                Nombre = producto.Nombre,
+                Descripcion = producto.Descripcion,
+                Precio = producto.Precio,
+                Estado = producto.Estado
+            };
+
+            return productDTO;
         }
 
         public string CreateProduct(ProductViewModel producto)

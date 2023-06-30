@@ -11,7 +11,7 @@ namespace CafeteriaAPI.Controllers
     [Route("api/ControladorProducto")]
     [ApiController]
     public class ProductsController : ControllerBase
-    {   //TEST Asi se utiliza una Inyecccion de dependencia
+    {  
         private readonly IProductService _service;
         public ProductsController(IProductService service)
         {
@@ -23,7 +23,7 @@ namespace CafeteriaAPI.Controllers
 
         public ActionResult<List<ProductDTO>> GetProductList()
         {
-            //var producto = new ProductoService();
+            
             var response = _service.GetProductList();
 
             return Ok(response);
@@ -34,7 +34,7 @@ namespace CafeteriaAPI.Controllers
 
         public ActionResult<ProductDTO> GetProductById(int id)
         {
-            //var producto = new ProductoService();
+            
             var response = _service.GetProductById(id);
 
             return Ok(response);

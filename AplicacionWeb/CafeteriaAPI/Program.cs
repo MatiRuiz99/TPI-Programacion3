@@ -10,6 +10,7 @@ builder.Services.AddDbContext<CafeteriaContext>(options => options.UseSqlServer(
 builder.Services.AddControllers();
 builder.Services.AddScoped<IProductService, ProductoService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISalesService, SalesService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

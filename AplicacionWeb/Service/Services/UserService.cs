@@ -97,7 +97,7 @@ namespace Service.Services
             return userList;
         }
 
-        public string ModifyUser(int id, UserDTO usuarioModificado)
+        public string ModifyUser(int id, UserViewModel usuarioModificado)
         {
             var usuario = _context.Users.FirstOrDefault(u => u.UserId == id);
             var role = _context.RoleList.FirstOrDefault(r => r.Id == usuarioModificado.RoleId);

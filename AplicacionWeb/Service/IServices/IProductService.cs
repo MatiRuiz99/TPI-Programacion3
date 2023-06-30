@@ -12,7 +12,7 @@ namespace Service.IServices
     public interface IProductService
     {
         List<ProductDTO> GetProductList();
-        Producto GetProductById(int id);
+        ProductDTO GetProductById(int id);
         string CreateProduct(ProductViewModel producto);
         string ModifyProduct(int id, ProductViewModel productoAModificar);
         string DeleteProduct(int id);
