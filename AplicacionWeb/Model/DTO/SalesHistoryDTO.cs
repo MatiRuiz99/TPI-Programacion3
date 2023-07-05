@@ -8,6 +8,7 @@ namespace Model.DTO
 {
     public class SalesHistoryDTO
     {
+        public int id { get; set; }
         public int UserId { get; set; }
         public int IdProducto { get; set; }
         public decimal? Price { get; set; }

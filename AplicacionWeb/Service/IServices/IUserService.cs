@@ -14,8 +14,10 @@ namespace Service.IServices
         string CreateUsuario(UserViewModel usuario);
         string CreateNewRole(RoleListViewModel newrole);
         List<RoleList> GetRoleList();
-        Users GetUserById(int id);
+        UserDTO GetUserById(int id);
         List<UserxRoleDTO> GetUserList();
         string ModifyUser(int id, UserViewModel usuarioModificado);
+        string DeleteUser(int id);
+
     }
 }

@@ -68,5 +68,13 @@ namespace CafeteriaAPI.Controllers
 
             return Ok(response);
         }
+
+        [HttpDelete("DeleteUser/{id}")]
+        public ActionResult<UserDTO> DeleteUser(int id)
+        {
+            var response = _service.DeleteUser(id);
+
+            return Ok(response);
+        }
     }
 }

@@ -73,11 +73,22 @@ namespace Service.Services
             return roleList;
         }
 
-        public Users GetUserById(int id)
+        public UserDTO GetUserById(int id)
         {
+            
             var usuario = _context.Users.FirstOrDefault(u => u.UserId == id);
 
-            return usuario;
+            var userDTO = new UserDTO()
+            {
+                UserId = usuario.UserId,
+                Name = usuario.Name,
+                Email = usuario.Email,
+                RoleId = usuario.RoleId
+            };
+
+            return userDTO;
+            
+
         }
 
         public List<UserxRoleDTO> GetUserList()
@@ -118,6 +129,21 @@ namespace Service.Services
             else
             {
                 return "Error al modificar el usuario (rol no existente)";
+            }
+        }
+        public string DeleteUser(int id)
+        {
+            var usuario = _context.Users.FirstOrDefault(u => u.UserId == id);
+
+            if (usuario != null)
+            {
+                _context.Users.Remove(usuario);
+                _context.SaveChanges();
+                return "Usuario eliminado exitosamente";
+            }
+            else
+            {
+                return "Usuario no encontrado";
             }
         }
     }
