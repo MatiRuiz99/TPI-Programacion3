@@ -1,5 +1,6 @@
 ﻿using Model.DTO;
 using Model.Models;
+using Model.ViewModel;
 using Service.IServices;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Service.Services
             _context = context;
         }
 
-        public string CreateRecord(SalesHistoryDTO producto)
+        public string CreateRecord(SalesViewModel producto)
         {
 
             string response = string.Empty;
@@ -65,7 +66,7 @@ namespace Service.Services
 
             return SalesList;
         }
-        public string ModifySaleHistory(int id, SalesHistoryDTO sale)
+        public string ModifySaleHistory(int id, SalesViewModel sale)
         {
             var saleHistory = _context.SalesHistory.FirstOrDefault(s => s.Id == id);
 

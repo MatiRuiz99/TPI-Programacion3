@@ -1,4 +1,5 @@
 ﻿using Model.DTO;
+using Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,10 @@ namespace Service.IServices
 {
     public interface ISalesService
     {
-        string CreateRecord(SalesHistoryDTO producto);
+        string CreateRecord(SalesViewModel producto);
         List<SalesHistoryReturn> GetSalesHistory();
+        string ModifySaleHistory(int id, SalesViewModel sale);
+        string DeleteSaleHistory(int id);
+        SalesHistoryReturn GetSaleById(int id);
     }
 }

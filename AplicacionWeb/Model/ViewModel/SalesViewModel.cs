@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Model.ViewModel
 {
-    internal class SalesViewModel
+    public class SalesViewModel
     {
+        public int UserId { get; set; }
+        public int IdProducto { get; set; }
+        public decimal? Price { get; set; }
+        
     }
 }
