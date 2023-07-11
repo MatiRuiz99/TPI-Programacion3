@@ -1,0 +1,4 @@
+2023-07-11 18:06:21.556 -03:00 [ERR] Ocurrio un error en CreateRecord: Sequence contains no elements
+2023-07-11 18:24:26.578 -03:00 [ERR] Ocurrio un error en GetSaleById: Sequence contains no elements
+2023-07-11 18:24:32.653 -03:00 [ERR] Ocurrio un error en GetSaleById: Sequence contains no elements
+2023-07-11 18:24:36.008 -03:00 [ERR] Ocurrio un error en GetSaleById: Sequence contains no elements

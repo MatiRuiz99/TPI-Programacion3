@@ -18,6 +18,8 @@ namespace Model.DTO
 
     public class SalesHistoryReturn
     {
+        public int id { get; set; } 
+        public int UserId { get; set; }
         public string User { get; set; } = string.Empty;
         public string email { get; set; } = string.Empty;
         public string Prod { get; set; } = string.Empty;
