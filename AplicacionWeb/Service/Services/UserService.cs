@@ -1,7 +1,9 @@
-﻿using Model.DTO;
+﻿using AutoMapper;
+using Model.DTO;
 using Model.Models;
 using Model.ViewModel;
 using Service.IServices;
+using Service.Mappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,34 +16,23 @@ namespace Service.Services
     public class UserService :IUserService
     {
         private readonly CafeteriaContext _context;
+        private readonly IMapper _mapper;
 
         public UserService(CafeteriaContext context)
         {
             _context = context;
+            _mapper = AutoMapperConfig.Configure();
         }
 
         public string CreateUsuario(UserViewModel usuario)
         {
             string response = string.Empty;
-
-            var role = _context.RoleList.FirstOrDefault(f => f.Id == usuario.RoleId);
-
-            if (role != null)
-            {
-                _context.Users.Add(new Users()
-                {
-                    Email = usuario.Email,
-                    Name = usuario.Name,
-                    RoleId = role.Id
-
-                });
-                _context.SaveChanges();
-                response = "Registro de usuario exitoso";
-            }
-            else
-            {
-                response = "Error al agregar el usuario (rol no existente)";
-            }
+            var role = _context.RoleList.First(f => f.Id == usuario.RoleId);
+            Users newUser = _mapper.Map<Users>(usuario);
+            _context.Users.Add(newUser);
+            _context.SaveChanges();
+            response = "Registro de usuario exitoso";
+                 
             return response;
         }
 
@@ -74,21 +65,8 @@ namespace Service.Services
         }
 
         public UserDTO GetUserById(int id)
-        {
-            
-            var usuario = _context.Users.FirstOrDefault(u => u.UserId == id);
-
-            var userDTO = new UserDTO()
-            {
-                UserId = usuario.UserId,
-                Name = usuario.Name,
-                Email = usuario.Email,
-                RoleId = usuario.RoleId
-            };
-
-            return userDTO;
-            
-
+        {         
+            return _mapper.Map<UserDTO>(_context.Users.First(u => u.UserId == id));        
         }
 
         public List<UserxRoleDTO> GetUserList()
@@ -110,30 +88,21 @@ namespace Service.Services
 
         public string ModifyUser(int id, UserViewModel usuarioModificado)
         {
-            var usuario = _context.Users.FirstOrDefault(u => u.UserId == id);
-            var role = _context.RoleList.FirstOrDefault(r => r.Id == usuarioModificado.RoleId);
+            var usuario = _context.Users.First(u => u.UserId == id);
+            var role = _context.RoleList.First(r => r.Id == usuarioModificado.RoleId);
+            
+            usuario.Email = usuarioModificado.Email;
+            usuario.Name = usuarioModificado.Name;
+            usuario.RoleId = role.Id;
 
-            if (usuario != null && role != null)
-            {
-                usuario.Email = usuarioModificado.Email;
-                usuario.Name = usuarioModificado.Name;
-                usuario.RoleId = role.Id;
-
-                _context.SaveChanges();
-                return "Usuario modificado exitosamente";
-            }
-            else if (usuario == null)
-            {
-                return "Usuario no encontrado";
-            }
-            else
-            {
-                return "Error al modificar el usuario (rol no existente)";
-            }
+            _context.SaveChanges();
+            return "Usuario modificado exitosamente";
+            
+            
         }
         public string DeleteUser(int id)
         {
-            var usuario = _context.Users.FirstOrDefault(u => u.UserId == id);
+            var usuario = _context.Users.First(u => u.UserId == id);
 
             if (usuario != null)
             {

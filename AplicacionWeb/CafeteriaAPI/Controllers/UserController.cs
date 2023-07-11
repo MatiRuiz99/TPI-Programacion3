@@ -13,10 +13,12 @@ namespace CafeteriaAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserService service)
+        public UserController(IUserService service, ILogger<UserController> logger)
         {
             _service = service;
+            _logger = logger;
         }
 
         [HttpPost("CreateUser")]
@@ -29,6 +31,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en CreateUser: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -43,6 +46,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en CreateNewRole: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -57,6 +61,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en GetUserById: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -71,6 +76,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en GetRoleList: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -85,6 +91,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en GetUserList: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -99,6 +106,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en PutModifiedUser: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -113,6 +121,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en DeleteUser: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }

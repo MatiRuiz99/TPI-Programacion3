@@ -1,0 +1,11 @@
+2023-07-10 21:21:54.750 -03:00 [ERR] Ocurrio un error en CreateUser: test
+2023-07-10 22:08:46.240 -03:00 [ERR] Ocurrio un error en GetProductById: Object reference not set to an instance of an object.
+2023-07-10 22:16:52.719 -03:00 [ERR] Ocurrio un error en GetProductById: Sequence contains no elements
+2023-07-10 22:17:18.960 -03:00 [ERR] Ocurrio un error en GetProductById: Sequence contains no elements
+2023-07-10 22:23:26.265 -03:00 [ERR] Ocurrio un error en GetProductById: Sequence contains no elements
+2023-07-10 22:23:38.241 -03:00 [ERR] Ocurrio un error en GetProductById: Sequence contains no elements
+2023-07-10 22:46:32.600 -03:00 [ERR] Ocurrio un error en GetProductById: Sequence contains no elements
+2023-07-10 22:48:32.960 -03:00 [ERR] Ocurrio un error en DeleteProduct: Sequence contains no elements
+2023-07-10 22:55:22.987 -03:00 [ERR] Ocurrio un error en CreateUser: Sequence contains no elements
+2023-07-10 23:06:27.519 -03:00 [ERR] Ocurrio un error en GetUserById: Sequence contains no elements
+2023-07-10 23:07:47.724 -03:00 [ERR] Ocurrio un error en DeleteUser: Sequence contains no elements

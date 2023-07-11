@@ -13,10 +13,12 @@ namespace CafeteriaAPI.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _service;
+        private readonly ILogger<ProductsController> _logger;
 
-        public ProductsController(IProductService service)
+        public ProductsController(IProductService service, ILogger<ProductsController> logger)
         {
             _service = service;
+            _logger = logger;
         }
 
         [HttpGet("GetProductList")]
@@ -29,6 +31,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en GetProductList: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -43,11 +46,12 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en GetProductById: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
 
-        [HttpPost("CreateProducto")]
+        [HttpPost("CreateProduct")]
         public ActionResult<ProductDTO> CreateProduct([FromBody] ProductViewModel producto)
         {
             try
@@ -57,11 +61,12 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en CreateProduct: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
 
-        [HttpPut("PutProducto/{id}")]
+        [HttpPut("ModifyProduct/{id}")]
         public ActionResult<ProductDTO> ModifyProduct(int id, [FromBody] ProductViewModel producto)
         {
             try
@@ -71,11 +76,12 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en ModifyProduct: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
 
-        [HttpDelete("DeleteProducto/{id}")]
+        [HttpDelete("DeleteProduct/{id}")]
         public ActionResult<ProductDTO> DeleteProduct(int id)
         {
             try
@@ -85,6 +91,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en DeleteProduct: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }

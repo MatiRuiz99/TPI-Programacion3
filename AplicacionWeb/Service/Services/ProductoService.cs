@@ -1,7 +1,9 @@
-﻿using Model.DTO;
+﻿using AutoMapper;
+using Model.DTO;
 using Model.Models;
 using Model.ViewModel;
 using Service.IServices;
+using Service.Mappings;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,10 +16,12 @@ namespace Service.Services
     public class ProductoService : IProductService
     {
         private readonly CafeteriaContext _context;
+        private readonly IMapper _mapper;
 
         public ProductoService(CafeteriaContext _context)
         {
             this._context = _context;
+            _mapper = AutoMapperConfig.Configure();
         }
 
         public List<ProductDTO> GetProductList()
@@ -27,14 +31,8 @@ namespace Service.Services
 
             foreach (var p in product)
             {
-                productResponse.Add(new ProductDTO()
-                {
-                    IdProducto = p.IdProducto,
-                    Nombre = p.Nombre,
-                    Descripcion = p.Descripcion,
-                    Precio = (decimal)p.Precio,
-                    Estado = p.Estado
-                });
+                ProductDTO Response = _mapper.Map<ProductDTO>(p);
+                productResponse.Add(Response);
             }
 
             return productResponse;
@@ -42,87 +40,61 @@ namespace Service.Services
 
         public ProductDTO GetProductById(int id)
         {
-            var producto = _context.Producto.FirstOrDefault(p => p.IdProducto == id);
-
-            var productDTO = new ProductDTO()
-            {
-                IdProducto = producto.IdProducto,
-                Nombre = producto.Nombre,
-                Descripcion = producto.Descripcion,
-                Precio = producto.Precio,
-                Estado = producto.Estado.ToLower()
-            };
-
-            return productDTO;
+            ProductDTO Response = _mapper.Map<ProductDTO>(_context.Producto.First(p => p.IdProducto == id));
+            return Response;
+            
         }
 
         public string CreateProduct(ProductViewModel producto)
         {
             string response = string.Empty;
 
-            if (new[] { "disponible", "pausado", "archivado" }.Contains(producto.Estado.ToLower()))
+            if (new[] { "disponible", "pausado" }.Contains(producto.Estado.ToLower()))
             {
-                _context.Producto.Add(new Producto()
-                {
-                    Nombre = producto.Nombre,
-                    Descripcion = producto.Descripcion,
-                    Precio = producto.Precio,
-                    Estado = producto.Estado.ToLower()
-                });
+                Producto Response = _mapper.Map<Producto>(producto);
+                _context.Producto.Add(Response);
                 _context.SaveChanges();
                 response = "Producto añadido exitosamente";
             }
             else
             {
-                response = "Error al seleccionar estado del producto (estado no existente)";
+                response = "Error al asignar el estado";
             }
             return response;
         }
 
         public string ModifyProduct(int id, ProductViewModel productoAModificar)
         {
-            var producto = _context.Producto.FirstOrDefault(p => p.IdProducto == id);
+            var producto = _context.Producto.First(p => p.IdProducto == id);
 
-            if (producto != null)
+            if (new[] { "disponible", "pausado", "archivado" }.Contains(productoAModificar.Estado.ToLower()))
             {
-                // Verificar si el estado proporcionado es válido
-                if (new[] { "disponible", "pausado", "archivado" }.Contains(productoAModificar.Estado.ToLower()))
-                {
-                    producto.Nombre = productoAModificar.Nombre;
-                    producto.Descripcion = productoAModificar.Descripcion;
-                    producto.Precio = productoAModificar.Precio;
-                    producto.Estado = productoAModificar.Estado.ToLower();
+                producto.Nombre = productoAModificar.Nombre;
+                producto.Descripcion = productoAModificar.Descripcion;
+                producto.Precio = productoAModificar.Precio;
+                producto.Estado = productoAModificar.Estado.ToLower();
 
-                    _context.SaveChanges();
-                    return "Producto modificado exitosamente";
-                }
-                else
-                {
-                    return "Error al seleccionar estado del producto (estado no existente)";
-                }
+                _context.SaveChanges();
+                return "Producto modificado exitosamente";
             }
             else
             {
-                return "Producto no encontrado";
+                return "Error al seleccionar estado del producto (estado no existente)";
             }
+            
+            
         }
 
         public string DeleteProduct(int id)
         {
             string response = string.Empty;
 
-            var producto = _context.Producto.FirstOrDefault(p => p.IdProducto == id);
-
-            if (producto != null)
-            {
-                producto.Estado = "archivado";
-                _context.SaveChanges();
-                response = "Producto dado de baja exitosamente";
-            }
-            else
-            {
-                response = "Producto no encontrado";
-            }
+            var producto = _context.Producto.First(p => p.IdProducto == id);
+           
+            producto.Estado = "archivado";
+            _context.SaveChanges();
+            response = "Producto dado de baja exitosamente";
+            
             return response;
         }
     }

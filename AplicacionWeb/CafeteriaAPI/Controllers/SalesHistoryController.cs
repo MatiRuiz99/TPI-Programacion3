@@ -14,10 +14,12 @@ namespace CafeteriaAPI.Controllers
     public class SalesHistoryController : ControllerBase
     {
         private readonly ISalesService _salesService;
+        private readonly ILogger<SalesHistoryController> _logger;
 
-        public SalesHistoryController(ISalesService salesService)
+        public SalesHistoryController(ISalesService salesService, ILogger<SalesHistoryController> logger)
         {
             _salesService = salesService;
+            _logger = logger;
         }
 
         [HttpGet("GetSalesHistory")]
@@ -30,6 +32,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en GetSalesHistory: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -44,6 +47,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en CreateRecord: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -58,6 +62,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en GetSaleById: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -72,6 +77,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en ModifySale: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -86,6 +92,7 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Ocurrio un error en DeleteRecord: {ex.Message}");
                 return BadRequest($"{ex.Message}");
             }
         }
