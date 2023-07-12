@@ -2,6 +2,7 @@
 using Model.DTO;
 using Model.Models;
 using Model.ViewModel;
+using Service.Helper;
 using Service.IServices;
 using Service.Mappings;
 using System;
@@ -100,6 +101,7 @@ namespace Service.Services
             {
                 usuario.Email = usuarioModificado.Email;
                 usuario.Name = usuarioModificado.Name;
+                usuario.Pass = usuarioModificado.Pass.GetSHA256();
                 usuario.RoleId = role.Id;
 
                 _context.SaveChanges();

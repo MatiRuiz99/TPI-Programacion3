@@ -69,17 +69,15 @@ namespace CafeteriaAPI.Controllers
 
 
         [HttpPost("CreateNewRole")]
-        [Authorize]
+        
         public ActionResult<RoleListViewModel> CreateNewRole([FromBody] RoleListViewModel newrole)
         {
             try
             {
-                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
-                {
+                
                     var response = _service.CreateNewRole(newrole);
                     return Ok(response);
-                }
-                throw new Exception("No tiene rol Administrador");
+                
             }
             catch (Exception ex)
             {
