@@ -1,0 +1,8 @@
+2023-07-12 13:55:33.385 -03:00 [ERR] Ocurrio un error en CreateProduct: No tiene rol Administrador
+2023-07-12 14:17:03.498 -03:00 [ERR] Ocurrio un error en CreateProduct: System.Exception: No tiene rol Administrador
+   at CafeteriaAPI.Controllers.ProductsController.CreateProduct(ProductViewModel producto) in C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\Controllers\ProductsController.cs:line 67
+2023-07-12 14:17:38.348 -03:00 [ERR] Ocurrio un error en GetUserList: No tiene rol Administrador
+2023-07-12 14:19:13.435 -03:00 [ERR] Ocurrio un error en CreateRecord: Sequence contains no elements
+2023-07-12 14:33:17.288 -03:00 [ERR] Ocurrio un error en GetUserList: No tiene rol Administrador
+2023-07-12 14:35:11.686 -03:00 [ERR] Ocurrio un error en CreateRecord: Necesita registrarse para realizar una compra
+2023-07-12 14:37:31.594 -03:00 [ERR] Ocurrio un error en GetSaleById: Sequence contains no elements

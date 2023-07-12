@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.DTO;
 using Model.ViewModel;
 using Service.IServices;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace CafeteriaAPI.Controllers
 {
@@ -46,52 +48,67 @@ namespace CafeteriaAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en GetProductById: {ex.Message}");
+                _logger.LogError($"Ocurrio un error en GetProductById: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
 
         [HttpPost("CreateProduct")]
+        [Authorize]
         public ActionResult<ProductDTO> CreateProduct([FromBody] ProductViewModel producto)
         {
             try
             {
-                var response = _service.CreateProduct(producto);
-                return Ok(response);
+                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
+                {
+                    var response = _service.CreateProduct(producto);
+                    return Ok(response);
+                }
+                throw new Exception("No tiene rol Administrador");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en CreateProduct: {ex.Message}");
+                _logger.LogError($"Ocurrio un error en CreateProduct: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
 
         [HttpPut("ModifyProduct/{id}")]
+        [Authorize]
         public ActionResult<ProductDTO> ModifyProduct(int id, [FromBody] ProductViewModel producto)
         {
             try
             {
-                var response = _service.ModifyProduct(id, producto);
-                return Ok(response);
+                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
+                {
+                    var response = _service.ModifyProduct(id, producto);
+                    return Ok(response);
+                }
+                throw new Exception("No tiene rol Administrador");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en ModifyProduct: {ex.Message}");
+                _logger.LogError($"Ocurrio un error en ModifyProduct: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
 
         [HttpDelete("DeleteProduct/{id}")]
+        [Authorize]
         public ActionResult<ProductDTO> DeleteProduct(int id)
         {
             try
             {
-                var response = _service.DeleteProduct(id);
-                return Ok(response);
+                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
+                {
+                    var response = _service.DeleteProduct(id);
+                    return Ok(response);
+                }
+                throw new Exception("No tiene rol Administrador");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en DeleteProduct: {ex.Message}");
+                _logger.LogError($"Ocurrio un error en DeleteProduct: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }

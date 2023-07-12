@@ -1,15 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.DTO;
+using Model.Models;
 using Model.ViewModel;
 using Service.IServices;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace CafeteriaAPI.Controllers
 {
     [Route("api/UserController")]
     [ApiController]
+    
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -65,42 +69,59 @@ namespace CafeteriaAPI.Controllers
 
 
         [HttpPost("CreateNewRole")]
+        [Authorize]
         public ActionResult<RoleListViewModel> CreateNewRole([FromBody] RoleListViewModel newrole)
         {
             try
             {
-                var response = _service.CreateNewRole(newrole);
-                return Ok(response);
+                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
+                {
+                    var response = _service.CreateNewRole(newrole);
+                    return Ok(response);
+                }
+                throw new Exception("No tiene rol Administrador");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en CreateNewRole: {ex.Message}");
+                _logger.LogError($"Ocurrio un error en CreateNewRole: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
 
         [HttpGet("GetUserById/{id}")]
+        [Authorize]
         public ActionResult<UserDTO> GetUsuarioById(int id)
         {
             try
             {
-                var response = _service.GetUserById(id);
-                return Ok(response);
+                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
+                {
+                    var response = _service.GetUserById(id);
+                    return Ok(response);
+                }
+                throw new Exception("No tiene rol Administrador");
+                
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en GetUserById: {ex.Message}");
+                _logger.LogError($"Ocurrio un error en GetUserById: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
 
         [HttpGet("GetRoleList")]
+        [Authorize]
         public ActionResult<List<RoleListDTO>> GetRoleList()
         {
             try
             {
-                var response = _service.GetRoleList();
-                return Ok(response);
+                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
+                {
+                    var response = _service.GetRoleList();
+                    return Ok(response);
+                }
+                throw new Exception("No tiene rol Administrador");
+                
             }
             catch (Exception ex)
             {
@@ -110,12 +131,18 @@ namespace CafeteriaAPI.Controllers
         }
 
         [HttpGet("GetUserList")]
+        [Authorize]
         public ActionResult<List<UserxRoleDTO>> GetUserList()
         {
             try
             {
-                var response = _service.GetUserList();
-                return Ok(response);
+                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
+                {
+                    var response = _service.GetUserList();
+                    return Ok(response);
+                }
+                throw new Exception("No tiene rol Administrador");
+                
             }
             catch (Exception ex)
             {
@@ -125,12 +152,18 @@ namespace CafeteriaAPI.Controllers
         }
 
         [HttpPut("PutModifiedUser/{id}")]
+        [Authorize]
         public ActionResult<UserDTO> ModifyUser(int id, [FromBody] UserViewModel user)
         {
             try
             {
-                var response = _service.ModifyUser(id, user);
-                return Ok(response);
+                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
+                {
+                    var response = _service.ModifyUser(id, user);
+                    return Ok(response);
+                }
+                throw new Exception("No tiene rol Administrador");
+                
             }
             catch (Exception ex)
             {
@@ -140,12 +173,18 @@ namespace CafeteriaAPI.Controllers
         }
 
         [HttpDelete("DeleteUser/{id}")]
+        [Authorize]
         public ActionResult<UserDTO> DeleteUser(int id)
         {
             try
             {
-                var response = _service.DeleteUser(id);
-                return Ok(response);
+                if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
+                {
+                    var response = _service.DeleteUser(id);
+                    return Ok(response);
+                }
+                throw new Exception("No tiene rol Administrador");
+                
             }
             catch (Exception ex)
             {
