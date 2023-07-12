@@ -31,13 +31,18 @@ namespace Service.Services
 
             var user = _context.Users.First(f => f.UserId == producto.UserId);
             var prod = _context.Producto.First(s => s.IdProducto == producto.IdProducto);
-
-            var sale = _mapper.Map<SalesHistory>(producto);
-            sale.SaleDate = DateTime.Now;
-            _context.SalesHistory.Add(sale);      
-            _context.SaveChanges();
-            response = "Compra exitosa";
-            
+            if (user != null && prod != null)
+            {
+                var sale = _mapper.Map<SalesHistory>(producto);
+                sale.SaleDate = DateTime.Now;
+                _context.SalesHistory.Add(sale);
+                _context.SaveChanges();
+                response = "Compra exitosa";
+            }
+            else
+            {
+                response = "Error en la compra";
+            }
             return response;
         }
 
@@ -65,19 +70,30 @@ namespace Service.Services
         public string ModifySaleHistory(int id, SalesViewModel sale)
         {
             var saleHistory = _context.SalesHistory.FirstOrDefault(s => s.Id == id);
-
-            var user = _context.Users.FirstOrDefault(u => u.UserId == sale.UserId);
-            var product = _context.Producto.FirstOrDefault(p => p.IdProducto == sale.IdProducto);
-                
-            saleHistory.UserId = user.UserId;
-            saleHistory.ProductId = product.IdProducto;
-            saleHistory.Price = sale.Price;
+            if (saleHistory != null)
+            {
+                var user = _context.Users.FirstOrDefault(u => u.UserId == sale.UserId);
+                var product = _context.Producto.FirstOrDefault(p => p.IdProducto == sale.IdProducto);
+                if (user != null && product != null)
+                {
+                    saleHistory.UserId = user.UserId;
+                    saleHistory.ProductId = product.IdProducto;
+                    saleHistory.Price = sale.Price;
                     
 
-            _context.SaveChanges();
-            return "Historial de venta modificado exitosamente";
-                
-            
+                    _context.SaveChanges();
+                    return "Historial de venta modificado exitosamente";
+                }
+                else
+                {
+                    return "Error al modificar el historial de venta (usuario o producto no encontrado)";
+                }
+            }
+            else
+            {
+                return "Historial de venta no encontrado";
+            }
+
         }
 
         public string DeleteSaleHistory(int id)

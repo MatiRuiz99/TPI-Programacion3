@@ -13,17 +13,19 @@ namespace Model.Models.Configurations
         public void Configure(EntityTypeBuilder<Users> entity)
         {
             entity.HasKey(e => e.UserId)
-                .HasName("PK__Users__1788CC4CAC5590DF");
+                .HasName("PK__Users__1788CC4C4A4C6F0F");
 
-            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.Email).HasMaxLength(250);
 
-            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.Name).HasMaxLength(250);
+
+            entity.Property(e => e.Pass).HasMaxLength(250);
 
             entity.HasOne(d => d.Role)
                 .WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Users__RoleId__1EA48E88");
+                .HasConstraintName("FK__Users__RoleId__2CF2ADDF");
 
             OnConfigurePartial(entity);
         }

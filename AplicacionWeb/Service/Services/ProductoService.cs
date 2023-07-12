@@ -40,7 +40,7 @@ namespace Service.Services
 
         public ProductDTO GetProductById(int id)
         {
-            ProductDTO Response = _mapper.Map<ProductDTO>(_context.Producto.First(p => p.IdProducto == id));
+            ProductDTO Response = _mapper.Map<ProductDTO>(_context.Producto.FirstOrDefault(p => p.IdProducto == id));
             return Response;
             
         }
@@ -67,34 +67,47 @@ namespace Service.Services
         {
             var producto = _context.Producto.First(p => p.IdProducto == id);
 
-            if (new[] { "disponible", "pausado", "archivado" }.Contains(productoAModificar.Estado.ToLower()))
+            if (producto != null)
             {
-                producto.Nombre = productoAModificar.Nombre;
-                producto.Descripcion = productoAModificar.Descripcion;
-                producto.Precio = productoAModificar.Precio;
-                producto.Estado = productoAModificar.Estado.ToLower();
+                if (new[] { "disponible", "pausado", "archivado" }.Contains(productoAModificar.Estado.ToLower()))
+                {
+                    producto.Nombre = productoAModificar.Nombre;
+                    producto.Descripcion = productoAModificar.Descripcion;
+                    producto.Precio = productoAModificar.Precio;
+                    producto.Estado = productoAModificar.Estado.ToLower();
 
-                _context.SaveChanges();
-                return "Producto modificado exitosamente";
+                    _context.SaveChanges();
+                    return "Producto modificado exitosamente";
+                }
+                else
+                {
+                    return "Error al seleccionar estado del producto (estado no existente)";
+                }
             }
             else
             {
-                return "Error al seleccionar estado del producto (estado no existente)";
+                return "Producto no encontrado";
             }
             
-            
+
         }
 
         public string DeleteProduct(int id)
         {
             string response = string.Empty;
 
-            var producto = _context.Producto.First(p => p.IdProducto == id);
-           
-            producto.Estado = "archivado";
-            _context.SaveChanges();
-            response = "Producto dado de baja exitosamente";
-            
+            var producto = _context.Producto.FirstOrDefault(p => p.IdProducto == id);
+
+            if (producto != null)
+            {
+                producto.Estado = "archivado";
+                _context.SaveChanges();
+                response = "Producto dado de baja exitosamente";
+            }
+            else
+            {
+                response = "Producto no encontrado";
+            }
             return response;
         }
     }

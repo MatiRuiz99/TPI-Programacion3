@@ -13,28 +13,56 @@ namespace CafeteriaAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+        private readonly IAuthService _authService;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserService service, ILogger<UserController> logger)
+        public UserController(IUserService service, ILogger<UserController> logger, IAuthService authService)
         {
             _service = service;
             _logger = logger;
+            _authService = authService;
         }
 
         [HttpPost("CreateUser")]
         public ActionResult<UserDTO> CreateUsuario([FromBody] UserViewModel usuario)
         {
+            
             try
             {
-                var response = _service.CreateUsuario(usuario);
+                var response = _authService.CrearUsuario(usuario);
+                if (response == "Ingrese un usuario" || response == "Usuario existente")
+                    return BadRequest(response);
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en CreateUser: {ex.Message}");
+                _logger.LogError($"Ocurrio un error en CreateUser: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
+
+        [HttpPost("Login")]
+        public ActionResult<string> Login([FromBody] AuthViewModel User)
+        {
+            string response = string.Empty;
+            try
+            {
+                response = _authService.Login(User);
+                if (string.IsNullOrEmpty(response))
+                {
+                    return NotFound("email/contraseña incorrecta");
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Ocurrio un error en CreateUser: {ex}");
+                return BadRequest($"{ex.Message}");
+            }
+
+            
+        }
+
 
         [HttpPost("CreateNewRole")]
         public ActionResult<RoleListViewModel> CreateNewRole([FromBody] RoleListViewModel newrole)

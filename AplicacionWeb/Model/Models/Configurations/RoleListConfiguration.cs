@@ -14,7 +14,7 @@ namespace Model.Models.Configurations
         {
             entity.Property(e => e.Id).HasColumnName("id");
 
-            entity.Property(e => e.Authority).HasMaxLength(50);
+            entity.Property(e => e.Authority).HasMaxLength(250);
 
             OnConfigurePartial(entity);
         }

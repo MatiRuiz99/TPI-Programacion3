@@ -28,11 +28,17 @@ namespace Service.Services
         {
             string response = string.Empty;
             var role = _context.RoleList.First(f => f.Id == usuario.RoleId);
-            Users newUser = _mapper.Map<Users>(usuario);
-            _context.Users.Add(newUser);
-            _context.SaveChanges();
-            response = "Registro de usuario exitoso";
-                 
+            if (role != null)
+            {               
+                _context.Users.Add(_mapper.Map<Users>(usuario));
+                _context.SaveChanges();
+                response = "Registro de usuario exitoso";
+            }
+            else
+            {
+                response = "Error al agregar el usuario (rol no existente)";
+            }
+
             return response;
         }
 
@@ -90,16 +96,25 @@ namespace Service.Services
         {
             var usuario = _context.Users.First(u => u.UserId == id);
             var role = _context.RoleList.First(r => r.Id == usuarioModificado.RoleId);
-            
-            usuario.Email = usuarioModificado.Email;
-            usuario.Name = usuarioModificado.Name;
-            usuario.RoleId = role.Id;
+            if (usuario != null && role != null)
+            {
+                usuario.Email = usuarioModificado.Email;
+                usuario.Name = usuarioModificado.Name;
+                usuario.RoleId = role.Id;
 
-            _context.SaveChanges();
-            return "Usuario modificado exitosamente";
-            
-            
-        }
+                _context.SaveChanges();
+                return "Usuario modificado exitosamente";
+            }
+                else if (usuario == null)
+                {
+                    return "Usuario no encontrado";
+                }
+            else
+            {
+                return "Error al modificar el usuario (rol no existente)";
+            }
+
+            }
         public string DeleteUser(int id)
         {
             var usuario = _context.Users.First(u => u.UserId == id);

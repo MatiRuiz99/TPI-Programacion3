@@ -223,3 +223,5 @@ C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\bin\Debug\ne
 C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\bin\Debug\net6.0\efpt.config.json
+C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
