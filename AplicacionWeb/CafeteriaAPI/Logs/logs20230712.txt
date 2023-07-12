@@ -6,3 +6,15 @@
 2023-07-12 14:33:17.288 -03:00 [ERR] Ocurrio un error en GetUserList: No tiene rol Administrador
 2023-07-12 14:35:11.686 -03:00 [ERR] Ocurrio un error en CreateRecord: Necesita registrarse para realizar una compra
 2023-07-12 14:37:31.594 -03:00 [ERR] Ocurrio un error en GetSaleById: Sequence contains no elements
+2023-07-12 17:29:20.011 -03:00 [ERR] Ocurrio un error en CreateRecord: System.InvalidOperationException: Sequence contains no elements
+   at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at lambda_method117(Closure , QueryContext )
+   at System.Linq.Queryable.First[TSource](IQueryable`1 source, Expression`1 predicate)
+   at Service.Services.SalesService.CreateRecord(SalesViewModel producto) in C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\Service\Services\SalesService.cs:line 32
+   at CafeteriaAPI.Controllers.SalesHistoryController.CreateRecord(SalesViewModel record) in C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\Controllers\SalesHistoryController.cs:line 52
+2023-07-12 17:30:16.054 -03:00 [ERR] Ocurrio un error en CreateRecord: System.InvalidOperationException: Sequence contains no elements
+   at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at lambda_method119(Closure , QueryContext )
+   at System.Linq.Queryable.First[TSource](IQueryable`1 source, Expression`1 predicate)
+   at Service.Services.SalesService.CreateRecord(SalesViewModel producto) in C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\Service\Services\SalesService.cs:line 33
+   at CafeteriaAPI.Controllers.SalesHistoryController.CreateRecord(SalesViewModel record) in C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\Controllers\SalesHistoryController.cs:line 52

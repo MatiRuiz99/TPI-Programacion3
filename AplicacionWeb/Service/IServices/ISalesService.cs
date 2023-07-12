@@ -15,5 +15,6 @@ namespace Service.IServices
         string ModifySaleHistory(int id, SalesViewModel sale);
         string DeleteSaleHistory(int id);
         SalesHistoryReturn GetSaleById(int id);
+        List<BestSellingProdDTO> GetTopSellingItems();
     }
 }

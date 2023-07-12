@@ -131,5 +131,23 @@ namespace Service.Services
             }
         }
 
+        public List<BestSellingProdDTO> GetTopSellingItems()
+        {
+            var topSellingItems = _context.SalesHistory
+                .GroupBy(s => s.ProductId)
+                .Select(g => new BestSellingProdDTO
+                {
+                    ProductId = g.Key,
+                    Name = _context.Producto.FirstOrDefault(p => p.IdProducto == g.Key).Nombre,
+                    QuantitySold = g.Count()
+                })
+                .OrderByDescending(s => s.QuantitySold)
+                .Take(3)
+                .ToList();
+
+            return topSellingItems;
+        }
+
+
     }
 }

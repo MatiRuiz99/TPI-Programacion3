@@ -124,5 +124,22 @@ namespace CafeteriaAPI.Controllers
                 return BadRequest($"{ex.Message}");
             }
         }
+
+        [HttpGet("GetTopSellingItems")]
+        public ActionResult<List<BestSellingProdDTO>> GetTopSellingItems()
+        {
+            try
+            {
+                var response = _salesService.GetTopSellingItems();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Ocurrio un error en GetTopSellingItems: {ex}");
+                return BadRequest($"{ex.Message}");
+            }
+        }
+
+
     }
 }
