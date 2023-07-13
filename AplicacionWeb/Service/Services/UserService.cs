@@ -25,25 +25,8 @@ namespace Service.Services
             _mapper = AutoMapperConfig.Configure();
         }
 
-        public string CreateUsuario(UserViewModel usuario)
-        {
-            string response = string.Empty;
-            var role = _context.RoleList.First(f => f.Id == usuario.RoleId);
-            if (role != null)
-            {               
-                _context.Users.Add(_mapper.Map<Users>(usuario));
-                _context.SaveChanges();
-                response = "Registro de usuario exitoso";
-            }
-            else
-            {
-                response = "Error al agregar el usuario (rol no existente)";
-            }
 
-            return response;
-        }
-
-        public string CreateNewRole(RoleListViewModel newrole)
+        public RoleListDTO CreateNewRole(RoleListViewModel newrole)
         {
             var existingRole = _context.RoleList.FirstOrDefault(r => r.Authority.ToLower() == newrole.Authority.ToLower());
 
@@ -56,24 +39,32 @@ namespace Service.Services
 
                 _context.RoleList.Add(role);
                 _context.SaveChanges();
-                return "Nuevo rol añadido exitosamente";
+                return _mapper.Map<RoleListDTO>(role);
             }
             else
             {
-                return "Error al añadir el nuevo rol (el rol ya existe)";
+                return null;
             }
         }
 
-        public List<RoleList> GetRoleList()
+        public List<RoleListDTO> GetRoleList()
         {
-            var roleList = _context.RoleList.ToList();
+            List<RoleList> roleList = _context.RoleList.ToList();
+            List<RoleListDTO> response = _mapper.Map<List<RoleListDTO>>(roleList);
+            return response;
 
-            return roleList;
         }
 
         public UserDTO GetUserById(int id)
-        {         
-            return _mapper.Map<UserDTO>(_context.Users.First(u => u.UserId == id));        
+        {
+            var response = _context.Users.FirstOrDefault(u => u.UserId == id);
+            if (response  == null)
+            {
+                return null;
+            }
+            else { 
+            return _mapper.Map<UserDTO>(response);
+            }
         }
 
         public List<UserxRoleDTO> GetUserList()
@@ -105,15 +96,15 @@ namespace Service.Services
                 usuario.RoleId = role.Id;
 
                 _context.SaveChanges();
-                return "Usuario modificado exitosamente";
+                return "User modified successfully";
             }
                 else if (usuario == null)
                 {
-                    return "Usuario no encontrado";
+                    return "User not found";
                 }
             else
             {
-                return "Error al modificar el usuario (rol no existente)";
+                return "Error modifying user (non-existent role)";
             }
 
             }
@@ -125,11 +116,11 @@ namespace Service.Services
             {
                 _context.Users.Remove(usuario);
                 _context.SaveChanges();
-                return "Usuario eliminado exitosamente";
+                return "User deleted successfully";
             }
             else
             {
-                return "Usuario no encontrado";
+                return "User not found";
             }
         }
     }

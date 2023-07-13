@@ -11,9 +11,9 @@ namespace Service.IServices
 {
     public interface IUserService
     {
-        string CreateUsuario(UserViewModel usuario);
-        string CreateNewRole(RoleListViewModel newrole);
-        List<RoleList> GetRoleList();
+        
+        RoleListDTO CreateNewRole(RoleListViewModel newrole);
+        List<RoleListDTO> GetRoleList();
         UserDTO GetUserById(int id);
         List<UserxRoleDTO> GetUserList();
         string ModifyUser(int id, UserViewModel usuarioModificado);

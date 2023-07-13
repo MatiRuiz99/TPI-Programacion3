@@ -45,22 +45,22 @@ namespace Service.Services
             
         }
 
-        public string CreateProduct(ProductViewModel producto)
+        public ProductDTO CreateProduct(ProductViewModel producto)
         {
-            string response = string.Empty;
+            Producto Response;
 
             if (new[] { "disponible", "pausado" }.Contains(producto.Estado.ToLower()))
             {
-                Producto Response = _mapper.Map<Producto>(producto);
+                Response = _mapper.Map<Producto>(producto);
                 _context.Producto.Add(Response);
-                _context.SaveChanges();
-                response = "Producto añadido exitosamente";
+                _context.SaveChanges();        
             }
             else
             {
-                response = "Error al asignar el estado";
+                Response = null;
             }
-            return response;
+             
+            return _mapper.Map<ProductDTO>(Response);
         }
 
         public string ModifyProduct(int id, ProductViewModel productoAModificar)
@@ -77,16 +77,16 @@ namespace Service.Services
                     producto.Estado = productoAModificar.Estado.ToLower();
 
                     _context.SaveChanges();
-                    return "Producto modificado exitosamente";
+                    return "Product modified successfully";
                 }
                 else
                 {
-                    return "Error al seleccionar estado del producto (estado no existente)";
+                    return "Error selecting product state (non-existent state)";
                 }
             }
             else
             {
-                return "Producto no encontrado";
+                return "Product not found";
             }
             
 
@@ -102,11 +102,11 @@ namespace Service.Services
             {
                 producto.Estado = "archivado";
                 _context.SaveChanges();
-                response = "Producto dado de baja exitosamente";
+                response = "Product deactivated successfully";
             }
             else
             {
-                response = "Producto no encontrado";
+                response = "Product not found";
             }
             return response;
         }

@@ -10,7 +10,7 @@ namespace Service.IServices
 {
     public interface ISalesService
     {
-        string CreateRecord(SalesViewModel producto);
+        SalesHistoryDTO CreateRecord(SalesViewModel producto);
         List<SalesHistoryReturn> GetSalesHistory();
         string ModifySaleHistory(int id, SalesViewModel sale);
         string DeleteSaleHistory(int id);

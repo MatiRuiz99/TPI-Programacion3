@@ -10,7 +10,7 @@ namespace Service.IServices
 {
     public interface IAuthService
     {
-        string CrearUsuario(UserViewModel User);
+        string CreateUser(UserViewModel User);
         string Login(AuthViewModel User);
     }
 }

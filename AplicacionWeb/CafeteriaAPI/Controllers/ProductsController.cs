@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace CafeteriaAPI.Controllers
 {
-    [Route("api/ControladorProducto")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -29,11 +29,15 @@ namespace CafeteriaAPI.Controllers
             try
             {
                 var response = _service.GetProductList();
+                if (response.Count == 0)
+                {
+                    return NotFound("no products available");
+                }
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en GetProductList: {ex.Message}");
+                _logger.LogError($"An error occurred in GetProductList: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -44,11 +48,15 @@ namespace CafeteriaAPI.Controllers
             try
             {
                 var response = _service.GetProductById(id);
+                if (response == null)
+                {
+                    return NotFound("Product not found");
+                }
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en GetProductById: {ex}");
+                _logger.LogError($"An error occurred in GetProductById: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -62,13 +70,21 @@ namespace CafeteriaAPI.Controllers
                 if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
                 {
                     var response = _service.CreateProduct(producto);
-                    return Ok(response);
+                    if (response == null)
+                    {
+                        return BadRequest(response);
+                    }
+                    string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+                    string apiAndEndpointUrl = $"api/Products/GetProductById";
+                    string locationUrl = $"{baseUrl}/{apiAndEndpointUrl}/{response.IdProducto}";
+                    return Created(locationUrl, response);
+                    
                 }
-                throw new Exception("No tiene rol Administrador");
+                throw new Exception("You don't have an Administrator role");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en CreateProduct: {ex}");
+                _logger.LogError($"An error occurred in CreateProduct: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -82,13 +98,19 @@ namespace CafeteriaAPI.Controllers
                 if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
                 {
                     var response = _service.ModifyProduct(id, producto);
+                    if (response == "Error selecting product state (non-existent state)")
+                    {
+                        return BadRequest(response);
+                    } else if (response == "Product not found") {
+                        return NotFound(response);
+                    }
                     return Ok(response);
                 }
-                throw new Exception("No tiene rol Administrador");
+                throw new Exception("You don't have an Administrator role");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en ModifyProduct: {ex}");
+                _logger.LogError($"An error occurred in ModifyProduct: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }
@@ -102,13 +124,17 @@ namespace CafeteriaAPI.Controllers
                 if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
                 {
                     var response = _service.DeleteProduct(id);
+                    if (response == "Product not found")
+                    {
+                       return NotFound(response);
+                    }
                     return Ok(response);
                 }
-                throw new Exception("No tiene rol Administrador");
+                throw new Exception("You don't have an Administrator role");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Ocurrio un error en DeleteProduct: {ex}");
+                _logger.LogError($"An error occurred in DeleteProduct: {ex}");
                 return BadRequest($"{ex.Message}");
             }
         }

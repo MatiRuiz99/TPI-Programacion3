@@ -17,6 +17,7 @@ namespace Service.Mappings
                 cfg.AddProfile<UserProfile>();
                 cfg.AddProfile<ProductProfile>();
                 cfg.AddProfile<SalesProfile>();
+                cfg.AddProfile<RoleProfile>();
             });
             
             IMapper mapper = mapperConfig.CreateMapper();

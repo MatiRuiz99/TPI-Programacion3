@@ -25,9 +25,9 @@ namespace Service.Services
             _mapper = AutoMapperConfig.Configure();
         }
 
-        public string CreateRecord(SalesViewModel producto)
+        public SalesHistoryDTO CreateRecord(SalesViewModel producto)
         {
-            string response = string.Empty;
+            SalesHistoryDTO response;
 
             var user = _context.Users.First(f => f.UserId == producto.UserId);
             var prod = _context.Producto.First(s => s.IdProducto == producto.IdProducto);
@@ -37,11 +37,11 @@ namespace Service.Services
                 sale.SaleDate = DateTime.Now;
                 _context.SalesHistory.Add(sale);
                 _context.SaveChanges();
-                response = "Compra exitosa";
+                response = _mapper.Map<SalesHistoryDTO>(sale);
             }
             else
             {
-                response = "Error en la compra";
+                response = null;
             }
             return response;
         }
@@ -82,25 +82,31 @@ namespace Service.Services
                     
 
                     _context.SaveChanges();
-                    return "Historial de venta modificado exitosamente";
+                    return "Sale history modified successfully";
                 }
                 else
                 {
-                    return "Error al modificar el historial de venta (usuario o producto no encontrado)";
+                    return "Error modifying sale history (user or product not found)";
                 }
             }
             else
             {
-                return "Historial de venta no encontrado";
+                return "Sale history not found";
             }
 
         }
 
         public string DeleteSaleHistory(int id)
-        {        
-                _context.SalesHistory.Remove(_context.SalesHistory.First(s => s.Id == id));
+        {
+            var sale = _context.SalesHistory.FirstOrDefault(s => s.Id == id);
+            if (sale != null) { 
+                _context.SalesHistory.Remove(sale);
                 _context.SaveChanges();
-                return "Historial de venta eliminado exitosamente";           
+                return "Sale history deleted successfully";
+            } else
+            {
+                return null;
+            }
         }
 
         public SalesHistoryReturn GetSaleById(int id)

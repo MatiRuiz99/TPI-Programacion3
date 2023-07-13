@@ -28,18 +28,18 @@ namespace Service.Services
             _appSettings = appSettings.Value;
         }
 
-        public string CrearUsuario(UserViewModel User)
+        public string CreateUser(UserViewModel User)
         {
             if (string.IsNullOrEmpty(User.Email))
             {
-                return "Ingrese un usuario";
+                return "User can't be empty";
             }
 
             Users? user = _context.Users.FirstOrDefault(x => x.Email == User.Email);
 
             if (user != null)
             {
-                return "Usuario existente";
+                return "User already in use";
             }
 
             _context.Users.Add(new Users()
