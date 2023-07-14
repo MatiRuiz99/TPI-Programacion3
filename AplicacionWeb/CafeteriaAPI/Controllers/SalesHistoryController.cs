@@ -32,9 +32,9 @@ namespace CafeteriaAPI.Controllers
             try
             {
                 var response = _salesService.GetSalesHistory();
-                if (response.Count == 0)
+                if (response == null || response.Count == 0)
                 {
-                    NotFound("No Purchases found");
+                    return NotFound("No Purchases found");
                 }
                 return Ok(response);
             }
@@ -54,7 +54,7 @@ namespace CafeteriaAPI.Controllers
                  var response = _salesService.CreateRecord(record);
                 if (response == null)
                 {
-                    NotFound("Error in purchase (product or user not found");
+                   return NotFound("Error in purchase (product or user not found");
                 }
                 string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
                 string apiAndEndpointUrl = $"api/SalesHistory/GetSaleById";
@@ -78,7 +78,7 @@ namespace CafeteriaAPI.Controllers
                     var response = _salesService.GetSaleById(id);
                 if (response == null)
                 {
-                    NotFound("Purchase not found");
+                    return NotFound("Purchase not found");
                 }
                     return Ok(response);   
             }
@@ -100,10 +100,10 @@ namespace CafeteriaAPI.Controllers
                     var response = _salesService.ModifySaleHistory(id, record);
                     if (response == "Error modifying sale history (user or product not found)")
                     {
-                        BadRequest(response);
+                        return BadRequest(response);
                     } else if (response == "Sale history not found")
                     {
-                        NotFound(response);
+                        return NotFound(response);
                     }
                     return Ok(response);
                 }
@@ -128,7 +128,7 @@ namespace CafeteriaAPI.Controllers
                     var response = _salesService.DeleteSaleHistory(id);
                     if (response == null)
                     {
-                        NotFound("Sale History not found");
+                        return NotFound("Sale History not found");
                     }
                     return Ok(response);
                 }
@@ -148,9 +148,9 @@ namespace CafeteriaAPI.Controllers
             try
             {
                 var response = _salesService.GetTopSellingItems();
-                if (response.Count == 0)
+                if (response == null || response.Count == 0)
                 {
-                    NotFound("There are no products");
+                    return NotFound("There are no products");
                 }
                 return Ok(response);
             }

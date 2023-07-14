@@ -13,7 +13,7 @@ namespace Model.Models.Configurations
         public void Configure(EntityTypeBuilder<Producto> entity)
         {
             entity.HasKey(e => e.IdProducto)
-                .HasName("PK__Producto__09889210C9160156");
+                .HasName("PK__Producto__09889210F2175BB4");
 
             entity.Property(e => e.Descripcion).HasMaxLength(250);
 

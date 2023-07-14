@@ -14,8 +14,8 @@ CREATE TABLE RoleList (
 
 CREATE TABLE Users (
 		UserId int primary key identity(1,1) not null,
-		Email nvarchar(250),
-		Pass nvarchar(250),
+		Email nvarchar(250) not null,
+		Pass nvarchar(250) not null,
 		Name nvarchar(250),
 		RoleId int foreign key references RoleList(id) not null
 )

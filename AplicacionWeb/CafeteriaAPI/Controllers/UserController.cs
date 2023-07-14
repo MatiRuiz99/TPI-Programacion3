@@ -35,7 +35,9 @@ namespace CafeteriaAPI.Controllers
             {
                 var response = _authService.CreateUser(usuario);
                 if (response == "User can't be empty" || response == "User already in use")
+                {
                     return BadRequest(response);
+                }
                 return Ok(response);
             }
             catch (Exception ex)
@@ -123,7 +125,7 @@ namespace CafeteriaAPI.Controllers
                 if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
                 {
                     var response = _service.GetRoleList();
-                    if (response.Count == 0)
+                    if (response == null || response.Count == 0)
                     {
                         return NotFound("Role List is empty");
                     }
@@ -148,7 +150,7 @@ namespace CafeteriaAPI.Controllers
                 if (HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value == "Administrador")
                 {
                     var response = _service.GetUserList();
-                    if (response.Count == 0)
+                    if (response == null || response.Count == 0)
                     {
                         return NotFound("User List is empty");
                     }
@@ -176,10 +178,10 @@ namespace CafeteriaAPI.Controllers
                     var response = _service.ModifyUser(id, user);
                     if (response == "Error modifying user (non-existent role)")
                     {
-                        BadRequest(response);
+                       return BadRequest(response);
                     }else if (response == "User not found")
                     {
-                        NotFound(response);
+                        return NotFound(response);
                     }
                     return Ok(response);
                 }
@@ -204,7 +206,7 @@ namespace CafeteriaAPI.Controllers
                     var response = _service.DeleteUser(id);
                     if (response == "User not found")
                     {
-                        NotFound(response);
+                        return NotFound(response);
                     }
 
                     return Ok(response);

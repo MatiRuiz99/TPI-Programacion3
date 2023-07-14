@@ -29,8 +29,8 @@ namespace Service.Services
         {
             SalesHistoryDTO response;
 
-            var user = _context.Users.First(f => f.UserId == producto.UserId);
-            var prod = _context.Producto.First(s => s.IdProducto == producto.IdProducto);
+            var user = _context.Users.FirstOrDefault(f => f.UserId == producto.UserId);
+            var prod = _context.Producto.FirstOrDefault(s => s.IdProducto == producto.IdProducto);
             if (user != null && prod != null)
             {
                 var sale = _mapper.Map<SalesHistory>(producto);

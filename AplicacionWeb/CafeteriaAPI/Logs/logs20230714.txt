@@ -1,0 +1,6 @@
+2023-07-14 10:52:45.288 -03:00 [ERR] An error occurred in CreateRecord: System.InvalidOperationException: Sequence contains no elements
+   at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at lambda_method165(Closure , QueryContext )
+   at System.Linq.Queryable.First[TSource](IQueryable`1 source, Expression`1 predicate)
+   at Service.Services.SalesService.CreateRecord(SalesViewModel producto) in C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\Service\Services\SalesService.cs:line 32
+   at CafeteriaAPI.Controllers.SalesHistoryController.CreateRecord(SalesViewModel record) in C:\Users\matia\Desktop\TPI-Programacion3\AplicacionWeb\CafeteriaAPI\Controllers\SalesHistoryController.cs:line 54

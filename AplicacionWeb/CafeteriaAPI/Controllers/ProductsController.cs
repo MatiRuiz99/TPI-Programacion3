@@ -29,7 +29,7 @@ namespace CafeteriaAPI.Controllers
             try
             {
                 var response = _service.GetProductList();
-                if (response.Count == 0)
+                if (response == null || response.Count == 0)
                 {
                     return NotFound("no products available");
                 }
