@@ -1,0 +1,45 @@
+1- Roles: Administrador, Usuario
+
+2- Cuentas:
+{
+  "email": "admin@gmail.com",
+  "name": "admin",
+  "pass": "admin1",
+  "roleId": 1
+}
+{
+  "email": "user@gmail.com",
+  "name": "user",
+  "pass": "user1",
+  "roleId": 2
+}
+
+
+3- Productos:
+{
+  "nombre": "Latte Vainilla",
+  "descripcion": "Espresso con vainilla y leche",
+  "precio": 500,
+  "estado": "pausado"
+}
+{
+  "nombre": "Café Negro",
+  "descripcion": "Café estandar",
+  "precio": 300,
+  "estado": "disponible"
+}
+
+{
+  "nombre": "Café Cortado",
+  "descripcion": "Café con poca leche",
+  "precio": 350,
+  "estado": "disponible"
+}
+
+{
+  "nombre": "Facturas Medialuna",
+  "descripcion": "Saladas o Dulces",
+  "precio": 200,
+  "estado": "disponible"
+}
+

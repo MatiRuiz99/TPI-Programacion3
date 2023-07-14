@@ -91,7 +91,7 @@ namespace CafeteriaAPI.Controllers
 
         [HttpPut("ModifySale/{id}")]
         [Authorize]
-        public ActionResult<SalesHistoryDTO> ModifySaleHistory(int id, [FromBody] SalesViewModel record)
+        public ActionResult<string> ModifySaleHistory(int id, [FromBody] SalesViewModel record)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace CafeteriaAPI.Controllers
 
         [HttpDelete("DeleteRecord/{id}")]
         [Authorize]
-        public ActionResult<SalesHistoryDTO> DeleteSaleHistory(int id)
+        public ActionResult<string> DeleteSaleHistory(int id)
         {
             try
             {

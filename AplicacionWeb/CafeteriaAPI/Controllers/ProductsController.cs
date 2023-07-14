@@ -91,7 +91,7 @@ namespace CafeteriaAPI.Controllers
 
         [HttpPut("ModifyProduct/{id}")]
         [Authorize]
-        public ActionResult<ProductDTO> ModifyProduct(int id, [FromBody] ProductViewModel producto)
+        public ActionResult<string> ModifyProduct(int id, [FromBody] ProductViewModel producto)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace CafeteriaAPI.Controllers
 
         [HttpDelete("DeleteProduct/{id}")]
         [Authorize]
-        public ActionResult<ProductDTO> DeleteProduct(int id)
+        public ActionResult<string> DeleteProduct(int id)
         {
             try
             {

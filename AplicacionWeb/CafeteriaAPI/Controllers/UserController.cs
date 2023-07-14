@@ -70,7 +70,7 @@ namespace CafeteriaAPI.Controllers
 
         [HttpPost("CreateNewRole")]
         
-        public ActionResult<RoleListDTO> CreateNewRole([FromBody] RoleListViewModel newrole)
+        public ActionResult<string> CreateNewRole([FromBody] RoleListViewModel newrole)
         {
             try
             {
@@ -167,7 +167,7 @@ namespace CafeteriaAPI.Controllers
 
         [HttpPut("PutModifiedUser/{id}")]
         [Authorize]
-        public ActionResult<UserDTO> ModifyUser(int id, [FromBody] UserViewModel user)
+        public ActionResult<string> ModifyUser(int id, [FromBody] UserViewModel user)
         {
             try
             {
@@ -195,7 +195,7 @@ namespace CafeteriaAPI.Controllers
 
         [HttpDelete("DeleteUser/{id}")]
         [Authorize]
-        public ActionResult<UserDTO> DeleteUser(int id)
+        public ActionResult<string> DeleteUser(int id)
         {
             try
             {
